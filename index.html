@@ -14,30 +14,36 @@
             font-family: 'Inter', sans-serif;
             background-color: #000000; 
             color: #f3f4f6; 
-            perspective: 1000px;
-            overflow-x: hidden; /* Prevent horizontal scroll from glitch effects */
+            perspective: 1200px; /* Deeper perspective for 3D effects */
+            overflow-x: hidden; 
         }
 
-        /* --- Color Palette Update --- */
+        /* --- Color Palette Update: Neon & Gold --- */
         :root {
-            --color-accent-gold: #ffd700; 
-            --color-accent-red: #ff3366; /* Sharper red */
-            --color-bg-dark: #0a0a0a;
+            --color-accent-gold: #ffc400; /* Brighter Gold */
+            --color-accent-red: #ff006e; /* Neon Pink/Red */
             --color-bg-deep: #000000;
         }
 
-        /* 1. ANIMATED GEOMETRIC BACKGROUND (Subtle but continuous movement) */
+        /* 1. ANIMATED GEOMETRIC BACKGROUND (More intense) */
         @keyframes geometric-shift {
             0% { background-position: 0% 0%; }
             100% { background-position: 100% 100%; }
         }
+        
+        /* New: Pulsating Light Source */
+        @keyframes pulse-light {
+            0%, 100% { box-shadow: 0 0 400px rgba(255, 0, 110, 0.4); }
+            50% { box-shadow: 0 0 500px rgba(255, 196, 0, 0.6); }
+        }
 
         .hero-background {
-            background: radial-gradient(circle at 50% 100%, #1a0a0a 0%, var(--color-bg-deep) 70%);
+            /* Radial gradient centered at the top */
+            background: radial-gradient(circle at 50% 0%, rgba(255, 0, 110, 0.15) 0%, var(--color-bg-deep) 70%);
             position: relative;
             overflow: hidden;
-            border-bottom: 3px solid var(--color-accent-gold);
-            box-shadow: 0 5px 20px rgba(255, 51, 102, 0.2);
+            border-bottom: 5px solid var(--color-accent-red);
+            box-shadow: 0 8px 30px rgba(255, 0, 110, 0.4);
         }
 
         .hero-background::before {
@@ -48,10 +54,25 @@
             right: 0;
             bottom: 0;
             /* Faint hexagonal grid pattern */
-            background-image: repeating-linear-gradient(60deg, #1c1c1c 0 1px, transparent 1px 12px), repeating-linear-gradient(-60deg, #1c1c1c 0 1px, transparent 1px 12px);
-            background-size: 24px 24px;
-            opacity: 0.15;
-            animation: geometric-shift 40s linear infinite; 
+            background-image: repeating-linear-gradient(60deg, #180007 0 1px, transparent 1px 16px), repeating-linear-gradient(-60deg, #180007 0 1px, transparent 1px 16px);
+            background-size: 32px 32px;
+            opacity: 0.2;
+            animation: geometric-shift 60s linear infinite; 
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150vw; /* Wide light source */
+            height: 50vh;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 196, 0, 0.1), transparent 70%);
+            animation: pulse-light 5s infinite ease-in-out;
             pointer-events: none;
             z-index: 1;
         }
@@ -63,8 +84,7 @@
         
         /* Electric Gradient text */
         .electric-gradient-text {
-            /* Now only provides the gradient fill, the glitch handles the color shifting */
-            background: linear-gradient(90deg, #ffe57f, #ffaa00, #ff3366); 
+            background: linear-gradient(90deg, var(--color-accent-gold), var(--color-accent-red), #ffffff); 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -72,13 +92,13 @@
             font-family: 'Cinzel', serif; 
         }
 
-        /* --- 2. RETRO RGB GLITCH EFFECT --- */
+        /* --- 2. RETRO RGB GLITCH EFFECT (Slightly faster/more unstable) --- */
         .glitch-text {
             font-family: 'Orbitron', sans-serif;
             position: relative;
             z-index: 10;
         }
-
+        /* (Glitch CSS is largely kept as it was high quality, just updated colors) */
         .glitch-text::before,
         .glitch-text::after {
             content: attr(data-text);
@@ -88,148 +108,145 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            clip-path: inset(0 0 100% 0); /* Start hidden */
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            -webkit-background-clip: text;
-            background-clip: text;
+            clip-path: inset(0 0 100% 0);
+            text-shadow: 0 0 10px rgba(255, 196, 0, 0.5);
         }
 
         .glitch-text::before {
             color: cyan;
-            text-shadow: -2px 0 #00ffff;
-            animation: glitch-anim 2s infinite linear alternate-reverse;
+            text-shadow: -2px 0 var(--color-accent-red); /* Red/Cyan separation */
+            animation: glitch-anim 1.5s infinite linear alternate-reverse;
         }
 
         .glitch-text::after {
             color: red;
-            text-shadow: 2px 0 #ff0000;
-            animation: glitch-anim-2 2s infinite linear alternate;
+            text-shadow: 2px 0 #00ffff;
+            animation: glitch-anim-2 1.5s infinite linear alternate;
         }
-
+        
         @keyframes glitch-anim {
             0% { transform: translate(0); clip-path: inset(0 0 100% 0); }
-            5% { transform: translate(-5px); clip-path: inset(20% 0 70% 0); }
-            10% { transform: translate(5px); clip-path: inset(10% 0 80% 0); }
-            15% { transform: translate(-5px); clip-path: inset(30% 0 60% 0); }
-            20% { transform: translate(5px); clip-path: inset(50% 0 40% 0); }
+            5% { transform: translate(-3px); clip-path: inset(15% 0 75% 0); }
+            10% { transform: translate(3px); clip-path: inset(5% 0 85% 0); }
+            15% { transform: translate(-3px); clip-path: inset(25% 0 65% 0); }
             100% { transform: translate(0); clip-path: inset(0 0 100% 0); }
         }
 
         @keyframes glitch-anim-2 {
             0% { transform: translate(0); clip-path: inset(100% 0 0 0); }
-            5% { transform: translate(5px); clip-path: inset(10% 0 80% 0); }
-            10% { transform: translate(-5px); clip-path: inset(40% 0 50% 0); }
-            15% { transform: translate(5px); clip-path: inset(70% 0 20% 0); }
-            20% { transform: translate(-5px); clip-path: inset(90% 0 0 0); }
+            5% { transform: translate(3px); clip-path: inset(5% 0 85% 0); }
+            10% { transform: translate(-3px); clip-path: inset(30% 0 60% 0); }
+            15% { transform: translate(3px); clip-path: inset(60% 0 30% 0); }
             100% { transform: translate(0); clip-path: inset(100% 0 0 0); }
         }
         /* --- END GLITCH EFFECT --- */
 
-        /* 3. CINEMATIC CONTENT REVEAL (More dramatic entry) */
+        /* 3. CINEMATIC CONTENT REVEAL */
         @keyframes cinematicReveal {
-            from { opacity: 0; transform: translateY(50px) rotateX(10deg); }
+            from { opacity: 0; transform: translateY(70px) rotateX(15deg); }
             to { opacity: 1; transform: translateY(0) rotateX(0deg); }
         }
         .animate-reveal {
-            animation: cinematicReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: cinematicReveal 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             opacity: 0; 
         }
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-        .delay-5 { animation-delay: 1.0s; }
-        .delay-6 { animation-delay: 1.2s; }
-        .delay-7 { animation-delay: 1.4s; }
-        .delay-8 { animation-delay: 1.6s; }
+        /* Delay classes (kept similar) */
+        .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; } .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1.0s; } .delay-6 { animation-delay: 1.2s; }
+        .delay-7 { animation-delay: 1.4s; } .delay-8 { animation-delay: 1.6s; }
 
         /* 4. COUNTDOWN NUMBER FLICKER (More prominent glow) */
         @keyframes flicker {
-            0%, 100% { opacity: 1; text-shadow: 0 0 8px var(--color-accent-gold); }
-            50% { opacity: 1; text-shadow: 0 0 15px var(--color-accent-red); }
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px var(--color-accent-gold); }
+            50% { opacity: 1; text-shadow: 0 0 20px var(--color-accent-red); }
         }
         .animate-flicker {
-            animation: flicker 4s infinite alternate;
+            animation: flicker 3s infinite alternate;
         }
 
         /* 5. FLOATING ELEMENT ANIMATION */
         @keyframes float {
-            0% { transform: translate(0, 0px) scale(1); }
-            50% { transform: translate(0, 5px) scale(1.01); } 
-            100% { transform: translate(0, 0px) scale(1); }
+            0% { transform: translate(0, 0px) scale(1.0); }
+            50% { transform: translate(0, 10px) scale(1.02); } /* Deeper float */
+            100% { transform: translate(0, 0px) scale(1.0); }
         }
         .animate-float {
-            animation: float 6s ease-in-out infinite;
+            animation: float 8s ease-in-out infinite;
         }
 
-        /* 6. CARD 3D HOVER (More aggressive tilt and glow) */
+        /* 6. CARD 3D HOVER */
         .premium-card {
-            background-color: rgba(17, 17, 17, 0.95); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.05); 
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background-color: rgba(10, 0, 15, 0.95); /* Deeper purple hint */
+            backdrop-filter: blur(15px); 
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 40px rgba(255, 0, 110, 0.1); 
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); /* Smoother transition */
             transform-style: preserve-3d;
         }
 
         .premium-card:hover {
-            /* Deeper 3D tilt */
-            transform: scale(1.03) translateZ(20px) rotateX(1deg) rotateY(-1deg); 
-            box-shadow: 0 10px 50px rgba(255, 215, 0, 0.3), 0 0 10px var(--color-accent-red);
+            transform: scale(1.04) translateZ(30px) rotateX(2deg) rotateY(-2deg); 
+            box-shadow: 0 15px 60px rgba(255, 196, 0, 0.4), 0 0 15px var(--color-accent-red);
         }
 
         /* --- SPECIAL STYLING FOR THE CONTEST CARD --- */
         .contest-highlight {
-            /* Overrides default premium-card background to be warmer/more dramatic */
-            background-color: rgba(30, 15, 0, 0.95) !important; 
-            border: 3px solid var(--color-accent-gold) !important; 
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3) !important; 
+            background-color: rgba(30, 0, 15, 0.95) !important; /* Warmer/Reddish background */
+            border: 4px solid var(--color-accent-gold) !important; 
+            box-shadow: 0 0 60px rgba(255, 196, 0, 0.5) !important; 
             position: relative;
             overflow: hidden;
-            
-            /* FIX: Control padding precisely to align content vertically with p-6 neighbors (24px padding) */
-            padding: 24px; /* Default p-6 padding for bottom/sides */
-            padding-top: 65px !important; /* Compensation for the banner height (~40px) + desired top margin (~25px) */
-        }
-
-        .contest-highlight:hover {
-            transform: scale(1.03) translateZ(20px) rotateX(1deg) rotateY(-1deg); /* Maintain 3D tilt */
-            box-shadow: 0 0 60px var(--color-accent-gold), 0 0 10px var(--color-accent-red) !important;
+            padding: 24px; 
+            padding-top: 65px !important; 
         }
 
         .contest-highlight::before {
-            content: '★ MAIN EVENT ★';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-            padding: 4px;
+            content: '★ DOSHA DOMINATION CONTESTS ★';
             background-color: var(--color-accent-red);
-            color: white;
-            font-weight: bold;
-            font-size: 0.75rem; /* text-xs equivalent */
-            letter-spacing: 2px;
-            z-index: 5;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            /* Rest of the styling kept */
         }
-
-        /* Countdown specific styling for separation */
-        .countdown-block {
-             background-color: rgba(255, 255, 255, 0.05);
-             border: 1px solid rgba(255, 215, 0, 0.2);
-             box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+        
+        /* --- RSVP Button Pulsation --- */
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 var(--color-accent-red); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 0, 110, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 110, 0); }
         }
-        .countdown-block:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        
+        .rsvp-button {
+            background: var(--color-accent-gold);
+            background-image: linear-gradient(45deg, var(--color-accent-gold) 0%, #ff6600 100%);
+            box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.7);
+            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+        
+        .rsvp-button:hover {
+            background-image: linear-gradient(45deg, #ff6600 0%, var(--color-accent-gold) 100%);
+            animation: none; /* Stop pulsing on hover for better interaction */
+        }
+        
+        /* 7. VISUAL ASCENT (The Triangle) */
+        .ascent-visual {
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 50px solid var(--color-accent-gold);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) rotateY(180deg);
+            opacity: 0.15;
+            z-index: 0;
+            filter: drop-shadow(0 0 10px var(--color-accent-gold));
         }
 
     </style>
 </head>
 <body>
 
-    <!-- Header & Hero Section - REDUCED PADDING -->
+    <!-- Header & Hero Section -->
     <header class="hero-background py-20 md:py-32">
         <div class="content-container container mx-auto px-6 text-center">
             
@@ -244,53 +261,55 @@
                 <span class="text-white block sm:inline-block">2024</span>
             </h1>
             
-            <!-- Subtitle/Tagline (Humorous & Relatable) -->
+            <!-- Subtitle/Tagline (Humorous & Relatable) - Punchier version -->
             <p class="text-2xl md:text-4xl font-light text-gray-300 mb-12 italic animate-reveal delay-1">
-                The only effective therapy for *Anxiety* of the first year.
+                The only **Stress Detox Therapy** approved by the Department of *Nidana Parivarjana*.
             </p>
 
             <!-- Event Date & Time Block (FLOATING ANIMATION) -->
-            <div class="inline-block premium-card px-10 py-5 rounded-full border-yellow-500/50 animate-reveal delay-2 animate-float">
+            <div class="inline-block premium-card px-8 py-4 rounded-full border-yellow-500/50 animate-reveal delay-2 animate-float">
                 <p class="text-xl md:text-3xl font-extrabold text-[var(--color-accent-gold)]">
-                    <!-- Event time is 09:00 HRS -->
                     <span class="text-[var(--color-accent-red)]">TARGET DATE:</span> 20 DEC 2025 | 09:00 HRS
                 </p>
                 <p class="text-md text-gray-400 mt-1">
-                    [WARNING: High Energy Transmission Zone]
+                    [LOCATION: HAMC GRAND HALL | DRESS CODE STRICTLY ENFORCED]
                 </p>
             </div>
             
-            <!-- Countdown Timer - REDUCED TOP MARGIN -->
-            <div id="countdown" class="mt-12 grid grid-cols-4 gap-4 sm:gap-6 justify-center animate-reveal delay-3">
+            <!-- Countdown Timer -->
+            <div id="countdown" class="mt-16 grid grid-cols-4 gap-4 sm:gap-6 justify-center animate-reveal delay-3">
                 <!-- Timer blocks will be injected here by JavaScript with flicker effect -->
             </div>
         </div>
+        
+        <!-- Ascent Visual (Triangle) -->
+        <div class="ascent-visual"></div>
     </header>
 
-    <!-- WARNING/DISCLAIMER Section -->
-    <section class="py-10 bg-black">
+    <!-- WARNING/DISCLAIMER Section - More Dramatic -->
+    <section class="py-6 bg-black"> <!-- Reduced py-10 to py-6 for less space -->
         <div class="container mx-auto px-6 text-center">
-            <div class="inline-block px-8 py-4 rounded-xl bg-red-900/40 border-2 border-red-500/80 shadow-red-500/50 shadow-xl animate-reveal delay-4">
-                <h3 class="text-3xl font-bold text-red-400 mb-2">⚠️ PROTOCOL ADVISORY:</h3>
+            <div class="inline-block px-8 py-4 rounded-xl bg-red-900/40 border-4 border-red-500/80 shadow-red-500/50 shadow-2xl animate-reveal delay-4">
+                <h3 class="text-3xl font-bold text-red-400 mb-2">🚨 PROTOCOL ADVISORY LEVEL RED:</h3>
                 <p class="text-xl text-white font-medium">
-                    This event is **NON-STUDY MATERIAL**. Attendance may temporarily erase memories of *Rachana Sharir*. We are not responsible for subsequent exam failures.
+                    This event is **NON-STUDY MATERIAL**. Attendance may temporarily erase memories of *Rachana Sharir* and *Kriya Sharir*. We are **not** liable for subsequent exam failures due to *Vata* Vitiation. Proceed with caution.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Welcome & Theme Section - REDUCED PADDING -->
-    <section class="py-16 md:py-24 bg-black">
+    <!-- Welcome & Theme Section -->
+    <section class="py-20 md:py-24 bg-black">
         <div class="container mx-auto px-6">
-            <h2 class="text-6xl font-extrabold text-[var(--color-accent-gold)] mb-12 text-center animate-reveal delay-5">ACCESS GRANTED: Mission Briefing</h2>
+            <h2 class="text-6xl font-extrabold text-[var(--color-accent-gold)] mb-12 text-center animate-reveal delay-5">DECODING THE MISSION: Phase 1 Briefing</h2>
             
             <div class="grid lg:grid-cols-3 gap-12 items-stretch">
                 
                 <!-- Welcome Message Card (3D Hover) -->
                 <div class="lg:col-span-2 premium-card p-8 sm:p-12 rounded-3xl animate-reveal delay-6">
-                    <h3 class="text-5xl font-bold text-[var(--color-accent-red)] mb-4">Phase 1: The Ojas Overload</h3>
+                    <h3 class="text-5xl font-bold text-[var(--color-accent-red)] mb-6 border-b-2 border-red-500/50 pb-2">Ojas Overload: Stress Detoxification</h3>
                     <p class="text-gray-300 text-xl mb-6 leading-relaxed">
-                        BAMS 2024 Batch, we are your 2023 seniors, and we welcome you to HAMC! This night is the official ritual to restore your maximum *Ojas* (vitality) after the stress of the first semester. Consider this your mandatory **Stress Detoxification Therapy**. Prepare for zero anatomical correctness and 100% fun.
+                        BAMS 2024 Batch, welcome to the Grand Ascent! The first semester is a journey through anatomical confusion and conceptual density. This night is your *Virechana Karma* (therapeutic purgation) for academic stress—a mandatory ritual to restore your maximum *Ojas* (vitality). Prepare for a night of zero anatomical correctness and 100% molecular bonding.
                     </p>
                     <p class="text-[var(--color-accent-gold)] font-semibold text-xl italic">
                         The ascent (आरोहण) is challenging, but the view from the top (of the dance floor) is magnificent. Let the bonding begin with an atomic energy blast!
@@ -301,7 +320,7 @@
                 <div class="lg:col-span-1 premium-card p-8 sm:p-12 rounded-3xl animate-reveal delay-7">
                     <h3 class="text-3xl font-bold text-[var(--color-accent-gold)] mb-6">Dress Code: Surgical Precision</h3>
                     <p class="text-lg text-gray-400 mb-6">
-                        Strictly **Interstellar Glitz & Glam**. Non-compliance will result in immediate social *Vyadhi* (disease).
+                        Strictly **Interstellar Glitz & Glam**. If you don't glow, you don't go. Non-compliance will result in immediate social *Vyadhi* (disease).
                     </p>
                     <ul class="space-y-4">
                         <li class="flex items-center text-xl font-bold text-gray-100">
@@ -310,11 +329,11 @@
                         </li>
                         <li class="flex items-center text-xl font-bold text-gray-100">
                             <span class="text-[var(--color-accent-red)] mr-3 text-2xl">🕶️</span>
-                            Boys: **Formal Black/Navy Suits (with maximum glow)**
+                            Boys: **Formal Black/Navy Suits (with maximum glow accessories)**
                         </li>
                         <li class="flex items-center text-xl font-bold text-gray-100">
                             <span class="text-[var(--color-accent-red)] mr-3 text-2xl">💎</span>
-                            Girls: **Evening Gowns/Designer Ethnic (Must shine brighter than the fluorescent lights)**
+                            Girls: **Evening Gowns/Designer Ethnic (Outshine the fluorescent lights!)**
                         </li>
                     </ul>
                 </div>
@@ -322,61 +341,62 @@
         </div>
     </section>
 
-    <!-- Program Highlights Section - REDUCED PADDING -->
+    <!-- Program Highlights Section -->
     <section class="pt-16 pb-20 bg-black">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-5xl font-extrabold text-white mb-12 border-b pb-4 border-yellow-500/30 inline-block animate-reveal delay-6">The Night's *Panchakarma* (Five Actions)</h2>
+            <!-- Simplified Section Title -->
+            <h2 class="text-5xl font-extrabold text-white mb-12 border-b-4 pb-4 border-yellow-500/50 inline-block animate-reveal delay-6">The Night's Five Action Plan (The Program)</h2>
             
-            <!-- UPDATED GRID: grid-cols-2 on mobile, 5 columns on desktop (md:grid-cols-5) for clean layout -->
+            <!-- 5-Column Grid -->
             <div class="grid grid-cols-2 gap-4 sm:gap-8 md:grid-cols-5"> 
                 
-                <!-- Highlight Card 1 (DJ) -->
-                <div class="p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-gold)] animate-reveal delay-7">
-                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">🎶</div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">DJ & *Vata* Vitiation</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic">Maximum rhythmic movement. Forget *Ashtanga*—this is the new Yoga.</p>
+                <!-- Highlight Card 1 (DJ) - Added text-left to description -->
+                <div class="p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-gold)] animate-reveal delay-7 min-h-40 text-center">
+                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">🎧</div>
+                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">DJ & Dance Floor Rush</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm italic text-left mx-auto">Maximum rhythmic movement. Your official stress reduction therapy. Forget the books and dance!</p>
                 </div>
                 
-                <!-- Highlight Card 2 (Talent) -->
-                <div class="p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-red)] animate-reveal delay-8">
-                    <div class="text-4xl mb-3 text-[var(--color-accent-red)]">🎙️</div>
+                <!-- Highlight Card 2 (Talent) - Added text-left to description -->
+                <div class="p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-red)] animate-reveal delay-8 min-h-40 text-center">
+                    <div class="text-4xl mb-3 text-[var(--color-accent-red)]">🎤</div>
                     <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Talent Showcase: Phase 2</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic">Prove you can treat more than *Krimi* (worms); unleash the inner superstar *Rishi*.</p>
+                    <p class="text-gray-400 text-xs sm:text-sm italic text-left mx-auto">Unleash your inner superstar. Singing, dancing, and comedy. Prove you're more than just a student!</p>
                 </div>
                 
-                <!-- Highlight Card 3 (MR & MS FRESHER) - Split Contest Card 1 -->
-                <div class="premium-card rounded-2xl animate-reveal delay-7 contest-highlight">
+                <!-- Highlight Card 3 (MR & MS FRESHER) - Added text-left to description -->
+                <div class="premium-card rounded-2xl animate-reveal delay-7 contest-highlight min-h-40 text-center">
                     <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">👑</div>
                     <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Mr. & Ms. Fresher</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic">The inaugural title. Who best survived the initial *Dhatus* (tissues) lectures?</p>
+                    <p class="text-gray-400 text-xs sm:text-sm italic text-left mx-auto">The ultimate title. Judged on charisma, wit, and confidence. Who will be the Batch Royalty?</p>
                 </div>
 
-                <!-- Highlight Card 4 (MR & MS SPARK) - Split Contest Card 2 -->
-                <div class="premium-card rounded-2xl animate-reveal delay-8 contest-highlight">
-                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">✨</div>
+                <!-- Highlight Card 4 (MR & MS SPARK) - Added text-left to description -->
+                <div class="premium-card rounded-2xl animate-reveal delay-8 contest-highlight min-h-40 text-center">
+                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">🔥</div>
                     <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Mr. & Ms. Spark</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic">The most dazzling personality and high-energy *Agni* (digestive fire).</p>
+                    <p class="text-gray-400 text-xs sm:text-sm italic text-left mx-auto">The most dazzling personality and highest energy. Bring the spark, win the crown.</p>
                 </div>
                 
-                <!-- Highlight Card 5 (Gourmet Feast) -->
-                <div class="p-6 premium-card rounded-2xl border-t-4 border-indigo-500 animate-reveal delay-8">
-                    <div class="text-4xl mb-3 text-indigo-400">🍕</div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Gourmet Feast (Anti-Kapha)</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic">Food that satisfies all six *Rasas*—and temporarily cures homesickness.</p>
+                <!-- Highlight Card 5 (Gourmet Feast) - Added text-left to description -->
+                <div class="p-6 premium-card rounded-2xl border-t-4 border-indigo-500 animate-reveal delay-8 min-h-40 text-center">
+                    <div class="text-4xl mb-3 text-indigo-400">🍽️</div>
+                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">The Grand Gourmet Feast</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm italic text-left mx-auto">Food that satisfies all cravings and temporarily cures homesickness. A grand feast to boost your energy levels.</p>
                 </div>
             </div>
             
             <!-- RSVP Button (Animated) -->
             <a href="javascript:void(0)" onclick="document.getElementById('rsvp-message').classList.remove('hidden')" class="mt-20 inline-block text-black font-extrabold py-5 px-16 rounded-full text-xl transition duration-300 transform hover:scale-110 shadow-lg rsvp-button uppercase tracking-widest animate-reveal delay-8">
-                Initiate RSVP Sequence (Required)
+                Initiate RSVP Sequence (Doshic Balance Required)
             </a>
 
-            <!-- Fake Modal Message Box -->
+            <!-- Fake Modal Message Box (No alert() used) -->
             <div id="rsvp-message" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 transition-opacity duration-300">
                 <div class="premium-card p-10 rounded-xl max-w-lg w-full text-center border-4 border-yellow-500/80 transform scale-100 animate-reveal delay-1">
-                    <h4 class="text-4xl font-extrabold text-[var(--color-accent-red)] mb-4">ACCESS DENIED</h4>
+                    <h4 class="text-4xl font-extrabold text-[var(--color-accent-red)] mb-4">SYSTEM ACCESS DENIED</h4>
                     <p class="text-xl text-gray-300 mb-6">
-                        Registration link is not yet active. Please check back 72 hours before the event. <br><span class="font-bold text-[var(--color-accent-gold)]">Don't be late! Your *Doshic* balance depends on it.</span>
+                        Registration link is not yet active. Please check back **72 hours** before the event for the *Panchakarma* pre-registration form. <br><span class="font-bold text-[var(--color-accent-gold)]">Failure to register will result in an immediate *Vata* imbalance.</span>
                     </p>
                     <button onclick="document.getElementById('rsvp-message').classList.add('hidden')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition">
                         Understood. Return to Mission.
@@ -387,11 +407,11 @@
     </section>
 
     <!-- Footer & Organizers -->
-    <footer class="py-12 bg-[#0c141d] border-t border-yellow-500/30">
+    <footer class="py-12 bg-[#0c0014] border-t-4 border-red-500/30">
         <div class="container mx-auto px-6 text-center">
             <p class="text-2xl font-bold text-[var(--color-accent-gold)] mb-2">BAMS 2023 Batch | HAMC</p>
             <p class="text-gray-500 text-base">
-                Your seniors have meticulously prepared this event. Trust the process.
+                Your seniors, the original *Acharyas* of this college, have prepared this event. Trust the process.
             </p>
             <p class="text-xs mt-6 text-gray-600">
                 Aarohan 2024. All rights reserved by the BAMS 2023 Host Committee. The Ascendant.
@@ -401,7 +421,6 @@
 
     <script>
         // JavaScript for the Countdown Timer
-        // Note: The event time is updated to 09:00:00 (9 AM)
         const eventDate = new Date("December 20, 2025 09:00:00").getTime();
 
         const countdownElement = document.getElementById("countdown");
@@ -419,20 +438,21 @@
 
             if (distance < 0) {
                 // Event has passed
-                countdownHtml = '<div class="col-span-4 text-4xl md:text-6xl font-bold text-[var(--color-accent-gold)] p-6 rounded-xl countdown-block">🥳 ACCESS APPROVED: Party in Progress! 🥳</div>';
+                countdownHtml = '<div class="col-span-4 text-4xl md:text-6xl font-bold text-[var(--color-accent-gold)] p-6 rounded-xl premium-card">🥳 MISSION COMPLETE: Party in Progress! 🥳</div>';
             } else {
                 // Event is counting down
+                // Simplified labels for better readability
                 const timeUnits = [
-                    { value: days, label: "Days" },
-                    { value: hours, label: "Hours" },
-                    { value: minutes, label: "Minutes" },
-                    { value: seconds, label: "Seconds" }
+                    { value: days, label: "Days / दिन" },
+                    { value: hours, label: "Hours / घंटे" },
+                    { value: minutes, label: "Minutes / मिनट" },
+                    { value: seconds, label: "Seconds / सेकंड" }
                 ];
 
                 timeUnits.forEach(unit => {
-                    // This section uses the grid structure defined in HTML, ensuring mobile responsiveness.
+                    // Added a wrapper div with premium-card for consistency
                     countdownHtml += `
-                        <div class="p-4 sm:p-6 rounded-2xl transition duration-300 countdown-block premium-card hover:shadow-none">
+                        <div class="p-4 sm:p-6 rounded-2xl transition duration-300 premium-card hover:shadow-none">
                             <div class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[var(--color-accent-gold)] animate-flicker">${unit.value.toString().padStart(2, '0')}</div>
                             <div class="text-xs sm:text-md md:text-xl font-medium text-gray-400 uppercase mt-2">${unit.label}</div>
                         </div>
