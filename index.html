@@ -186,7 +186,10 @@
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.3) !important; 
             position: relative;
             overflow: hidden;
-            padding-top: 50px !important; /* Make room for the banner */
+            
+            /* FIX: Control padding precisely to align content vertically with p-6 neighbors (24px padding) */
+            padding: 24px; /* Default p-6 padding for bottom/sides */
+            padding-top: 65px !important; /* Compensation for the banner height (~40px) + desired top margin (~25px) */
         }
 
         .contest-highlight:hover {
@@ -226,8 +229,8 @@
 </head>
 <body>
 
-    <!-- Header & Hero Section -->
-    <header class="hero-background py-24 md:py-40">
+    <!-- Header & Hero Section - REDUCED PADDING -->
+    <header class="hero-background py-20 md:py-32">
         <div class="content-container container mx-auto px-6 text-center">
             
             <!-- College Logo/Text -->
@@ -257,8 +260,8 @@
                 </p>
             </div>
             
-            <!-- Countdown Timer -->
-            <div id="countdown" class="mt-20 flex justify-center space-x-4 md:space-x-8 animate-reveal delay-3">
+            <!-- Countdown Timer - REDUCED TOP MARGIN -->
+            <div id="countdown" class="mt-12 grid grid-cols-4 gap-4 sm:gap-6 justify-center animate-reveal delay-3">
                 <!-- Timer blocks will be injected here by JavaScript with flicker effect -->
             </div>
         </div>
@@ -276,10 +279,10 @@
         </div>
     </section>
 
-    <!-- Welcome & Theme Section -->
-    <section class="py-20 md:py-32 bg-black">
+    <!-- Welcome & Theme Section - REDUCED PADDING -->
+    <section class="py-16 md:py-24 bg-black">
         <div class="container mx-auto px-6">
-            <h2 class="text-6xl font-extrabold text-[var(--color-accent-gold)] mb-16 text-center animate-reveal delay-5">ACCESS GRANTED: Mission Briefing</h2>
+            <h2 class="text-6xl font-extrabold text-[var(--color-accent-gold)] mb-12 text-center animate-reveal delay-5">ACCESS GRANTED: Mission Briefing</h2>
             
             <div class="grid lg:grid-cols-3 gap-12 items-stretch">
                 
@@ -319,38 +322,47 @@
         </div>
     </section>
 
-    <!-- Program Highlights Section -->
-    <section class="py-20 bg-black">
+    <!-- Program Highlights Section - REDUCED PADDING -->
+    <section class="pt-16 pb-20 bg-black">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-5xl font-extrabold text-white mb-14 border-b pb-4 border-yellow-500/30 inline-block animate-reveal delay-6">The Night's *Panchakarma* (Five Actions)</h2>
+            <h2 class="text-5xl font-extrabold text-white mb-12 border-b pb-4 border-yellow-500/30 inline-block animate-reveal delay-6">The Night's *Panchakarma* (Five Actions)</h2>
             
-            <div class="grid md:grid-cols-4 gap-8">
-                <!-- Highlight Card 1 (3D Hover) -->
+            <!-- UPDATED GRID: grid-cols-2 on mobile, 5 columns on desktop (md:grid-cols-5) for clean layout -->
+            <div class="grid grid-cols-2 gap-4 sm:gap-8 md:grid-cols-5"> 
+                
+                <!-- Highlight Card 1 (DJ) -->
                 <div class="p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-gold)] animate-reveal delay-7">
                     <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">🎶</div>
-                    <h3 class="text-2xl font-semibold text-white mb-2">DJ & *Vata* Vitiation</h3>
-                    <p class="text-gray-400 text-sm italic">Maximum rhythmic movement. Forget *Ashtanga*—this is the new Yoga.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">DJ & *Vata* Vitiation</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm italic">Maximum rhythmic movement. Forget *Ashtanga*—this is the new Yoga.</p>
                 </div>
-                <!-- Highlight Card 2 (3D Hover) -->
+                
+                <!-- Highlight Card 2 (Talent) -->
                 <div class="p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-red)] animate-reveal delay-8">
                     <div class="text-4xl mb-3 text-[var(--color-accent-red)]">🎙️</div>
-                    <h3 class="text-2xl font-semibold text-white mb-2">Talent Showcase: Phase 2</h3>
-                    <p class="text-gray-400 text-sm italic">Prove you can treat more than *Krimi* (worms); unleash the inner superstar *Rishi*.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Talent Showcase: Phase 2</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm italic">Prove you can treat more than *Krimi* (worms); unleash the inner superstar *Rishi*.</p>
                 </div>
-                <!-- Highlight Card 3 (FEATURED CONTEST) - Now looks premium -->
+                
+                <!-- Highlight Card 3 (MR & MS FRESHER) - Split Contest Card 1 -->
                 <div class="premium-card rounded-2xl animate-reveal delay-7 contest-highlight">
-                    <!-- Adjusted padding and added banner via CSS ::before -->
-                    <div class="p-6">
-                        <div class="text-4xl mb-3 mt-4 text-[var(--color-accent-gold)]">👑</div>
-                        <h3 class="text-2xl font-semibold text-white mb-2">Mr. & Ms. Fresher | Mr. & Ms. Spark</h3>
-                        <p class="text-gray-400 text-sm italic">The ultimate test of personality. Two crowns are better than one! (It's rigged, obviously).</p>
-                    </div>
+                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">👑</div>
+                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Mr. & Ms. Fresher</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm italic">The inaugural title. Who best survived the initial *Dhatus* (tissues) lectures?</p>
                 </div>
-                <!-- Highlight Card 4 (3D Hover) -->
+
+                <!-- Highlight Card 4 (MR & MS SPARK) - Split Contest Card 2 -->
+                <div class="premium-card rounded-2xl animate-reveal delay-8 contest-highlight">
+                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">✨</div>
+                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Mr. & Ms. Spark</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm italic">The most dazzling personality and high-energy *Agni* (digestive fire).</p>
+                </div>
+                
+                <!-- Highlight Card 5 (Gourmet Feast) -->
                 <div class="p-6 premium-card rounded-2xl border-t-4 border-indigo-500 animate-reveal delay-8">
                     <div class="text-4xl mb-3 text-indigo-400">🍕</div>
-                    <h3 class="text-2xl font-semibold text-white mb-2">Gourmet Feast (Anti-Kapha)</h3>
-                    <p class="text-gray-400 text-sm italic">Food that satisfies all six *Rasas*—and temporarily cures homesickness.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Gourmet Feast (Anti-Kapha)</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm italic">Food that satisfies all six *Rasas*—and temporarily cures homesickness.</p>
                 </div>
             </div>
             
@@ -407,7 +419,7 @@
 
             if (distance < 0) {
                 // Event has passed
-                countdownHtml = '<div class="text-4xl md:text-6xl font-bold text-[var(--color-accent-gold)] p-6 rounded-xl countdown-block">🥳 ACCESS APPROVED: Party in Progress! 🥳</div>';
+                countdownHtml = '<div class="col-span-4 text-4xl md:text-6xl font-bold text-[var(--color-accent-gold)] p-6 rounded-xl countdown-block">🥳 ACCESS APPROVED: Party in Progress! 🥳</div>';
             } else {
                 // Event is counting down
                 const timeUnits = [
@@ -418,11 +430,11 @@
                 ];
 
                 timeUnits.forEach(unit => {
-                    // Applied flicker and the new block styling
+                    // This section uses the grid structure defined in HTML, ensuring mobile responsiveness.
                     countdownHtml += `
-                        <div class="p-6 rounded-2xl w-24 sm:w-32 md:w-40 transition duration-300 countdown-block premium-card hover:shadow-none">
-                            <div class="text-5xl md:text-7xl font-extrabold text-[var(--color-accent-gold)] animate-flicker">${unit.value.toString().padStart(2, '0')}</div>
-                            <div class="text-sm md:text-xl font-medium text-gray-400 uppercase mt-2">${unit.label}</div>
+                        <div class="p-4 sm:p-6 rounded-2xl transition duration-300 countdown-block premium-card hover:shadow-none">
+                            <div class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[var(--color-accent-gold)] animate-flicker">${unit.value.toString().padStart(2, '0')}</div>
+                            <div class="text-xs sm:text-md md:text-xl font-medium text-gray-400 uppercase mt-2">${unit.label}</div>
                         </div>
                     `;
                 });
