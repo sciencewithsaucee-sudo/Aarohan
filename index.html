@@ -15,7 +15,7 @@
             background-color: #000000; 
             color: #f3f4f6; 
             perspective: 1200px; /* Deeper perspective for 3D effects */
-            overflow-x: hidden; 
+            overflow-x: hidden; /* CRITICAL FIX: Prevent horizontal scrolling */
         }
 
         /* --- Color Palette Update: Neon & Gold --- */
@@ -105,8 +105,9 @@
             content: attr(data-text);
             position: absolute;
             top: 0;
-            left: 50%; /* Start at center */
-            transform: translateX(-50%); /* Pull back half its width */
+            /* Using left 50% and translateX -50% for perfect centering */
+            left: 50%; 
+            transform: translateX(-50%); 
             width: 100%;
             height: 100%;
             pointer-events: none;
@@ -128,19 +129,19 @@
         
         /* Glitch Keyframes adjusted to use the centered transform */
         @keyframes glitch-anim {
-            0% { transform: translate(-50%, 0); clip-path: inset(0 0 100% 0); }
+            0% { transform: translate(calc(-50% + 1px), 0); clip-path: inset(0 0 100% 0); }
             5% { transform: translate(calc(-50% - 3px), 0); clip-path: inset(15% 0 75% 0); }
             10% { transform: translate(calc(-50% + 3px), 0); clip-path: inset(5% 0 85% 0); }
             15% { transform: translate(calc(-50% - 3px), 0); clip-path: inset(25% 0 65% 0); }
-            100% { transform: translate(-50%, 0); clip-path: inset(0 0 100% 0); }
+            100% { transform: translate(calc(-50% + 1px), 0); clip-path: inset(0 0 100% 0); }
         }
 
         @keyframes glitch-anim-2 {
-            0% { transform: translate(-50%, 0); clip-path: inset(100% 0 0 0); }
+            0% { transform: translate(calc(-50% - 1px), 0); clip-path: inset(100% 0 0 0); }
             5% { transform: translate(calc(-50% + 3px), 0); clip-path: inset(5% 0 85% 0); }
             10% { transform: translate(calc(-50% - 3px), 0); clip-path: inset(30% 0 60% 0); }
             15% { transform: translate(calc(-50% + 3px), 0); clip-path: inset(60% 0 30% 0); }
-            100% { transform: translate(-50%, 0); clip-path: inset(100% 0 0 0); }
+            100% { transform: translate(calc(-50% - 1px), 0); clip-path: inset(100% 0 0 0); }
         }
         /* --- END GLITCH EFFECT --- */
 
@@ -257,29 +258,29 @@
             z-index: 0;
             filter: drop-shadow(0 0 10px var(--color-accent-gold));
         }
-
     </style>
 </head>
 <body>
 
     <!-- Header & Hero Section -->
     <header class="hero-background py-20 md:py-32">
-        <div class="content-container container mx-auto px-6 text-center">
+        <div class="content-container container mx-auto px-4 sm:px-6 text-center">
             
             <!-- College Logo/Text - Replaced technical protocol with a welcoming headline -->
             <p class="text-xl font-semibold text-gray-400 mb-2 tracking-widest uppercase animate-reveal">
-                <span class="text-[var(--color-accent-red)]">HAMC BAMS SENIORS PRESENT:</span>
+                <span class="text-[var(--color-accent-red)]">HAMC BAMS 2023 PRESENT:</span>
             </p>
 
             <!-- Main Title (GLITCHED AND ANIMATED AND PERFECTLY CENTERED) -->
-            <h1 class="glitch-text text-8xl sm:text-9xl md:text-[10rem] font-extrabold mb-6 leading-none" data-text="आरोहण 2024">
+            <!-- Adjusted font sizes for better mobile fit: text-6xl (default), sm:text-8xl, lg:text-[10rem] -->
+            <h1 class="glitch-text text-6xl sm:text-8xl lg:text-[10rem] font-extrabold mb-6 leading-none" data-text="आरोहण 2024">
                 <span class="electric-gradient-text">आरोहण</span>
                 <span class="text-white block sm:inline-block">2024</span>
             </h1>
             
             <!-- Subtitle/Tagline (Humorous & Relatable) -->
             <p class="text-2xl md:text-4xl font-light text-gray-300 mb-12 italic animate-reveal delay-1">
-                The only **Stress Detox Therapy** approved by the Department of *Nidana Parivarjana*.
+                The only **Stress Detox Therapy** approved by the Department of *Rog Nidan*.
             </p>
 
             <!-- Event Date & Time Block (FLOATING ANIMATION) -->
@@ -288,7 +289,7 @@
                     <span class="text-[var(--color-accent-red)]">TARGET DATE:</span> 20 DEC 2025 | 09:00 HRS
                 </p>
                 <p class="text-md text-gray-400 mt-1">
-                    [LOCATION: HAMC GRAND HALL | DRESS CODE STRICTLY ENFORCED]
+                    [LOCATION: HAMC SEMINAR HALL | DRESS CODE STRICTLY ENFORCED]
                 </p>
             </div>
             
@@ -304,10 +305,10 @@
 
     <!-- WARNING/DISCLAIMER Section -->
     <section class="py-6 bg-black"> 
-        <div class="container mx-auto px-6 text-center">
-            <div class="inline-block px-8 py-4 rounded-xl bg-red-900/40 border-4 border-red-500/80 shadow-red-500/50 shadow-2xl animate-reveal delay-4">
-                <h3 class="text-3xl font-bold text-red-400 mb-2">🚨 PROTOCOL ADVISORY LEVEL RED:</h3>
-                <p class="text-xl text-white font-medium">
+        <div class="container mx-auto px-4 sm:px-6 text-center">
+            <div class="inline-block px-8 py-4 rounded-xl bg-red-900/40 border-4 border-red-500/80 shadow-red-500/50 shadow-2xl animate-reveal delay-4 max-w-full">
+                <h3 class="text-2xl sm:text-3xl font-bold text-red-400 mb-2">🚨 PROTOCOL ADVISORY LEVEL RED:</h3>
+                <p class="text-lg sm:text-xl text-white font-medium">
                     This event is **NON-STUDY MATERIAL**. Attendance may temporarily erase memories of *Rachana Sharir* and *Kriya Sharir*. We are **not** liable for subsequent exam failures due to *Vata* Vitiation. Proceed with caution.
                 </p>
             </div>
@@ -316,18 +317,18 @@
 
     <!-- Welcome & Theme Section -->
     <section class="py-20 md:py-24 bg-black">
-        <div class="container mx-auto px-6">
-            <h2 class="text-6xl font-extrabold text-[var(--color-accent-gold)] mb-12 text-center animate-reveal delay-5">DECODING THE MISSION: Phase 1 Briefing</h2>
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--color-accent-gold)] mb-12 text-center animate-reveal delay-5">DECODING THE MISSION: Phase 1 Briefing</h2>
             
-            <div class="grid lg:grid-cols-3 gap-12 items-stretch">
+            <div class="grid lg:grid-cols-3 gap-8 md:gap-12 items-stretch">
                 
                 <!-- Welcome Message Card (3D Hover) -->
                 <div class="lg:col-span-2 premium-card p-8 sm:p-12 rounded-3xl animate-reveal delay-6">
-                    <h3 class="text-5xl font-bold text-[var(--color-accent-red)] mb-6 border-b-2 border-red-500/50 pb-2">Ojas Overload: Stress Detoxification</h3>
-                    <p class="text-gray-300 text-xl mb-6 leading-relaxed">
+                    <h3 class="text-4xl sm:text-5xl font-bold text-[var(--color-accent-red)] mb-6 border-b-2 border-red-500/50 pb-2">Ojas Overload: Stress Detoxification</h3>
+                    <p class="text-gray-300 text-lg sm:text-xl mb-6 leading-relaxed">
                         BAMS 2024 Batch, welcome to the Grand Ascent! The first semester is a journey through anatomical confusion and conceptual density. This night is your *Virechana Karma* (therapeutic purgation) for academic stress—a mandatory ritual to restore your maximum *Ojas* (vitality). Prepare for a night of zero anatomical correctness and 100% molecular bonding.
                     </p>
-                    <p class="text-[var(--color-accent-gold)] font-semibold text-xl italic">
+                    <p class="text-[var(--color-accent-gold)] font-semibold text-lg sm:text-xl italic">
                         The ascent (आरोहण) is challenging, but the view from the top (of the dance floor) is magnificent. Let the bonding begin with an atomic energy blast!
                     </p>
                 </div>
@@ -336,20 +337,20 @@
                 <div class="lg:col-span-1 premium-card p-8 sm:p-12 rounded-3xl animate-reveal delay-7">
                     <h3 class="text-3xl font-bold text-[var(--color-accent-gold)] mb-6">Dress Code: Surgical Precision</h3>
                     <p class="text-lg text-gray-400 mb-6">
-                        Strictly **Interstellar Glitz & Glam**. If you don't glow, you don't go. Non-compliance will result in immediate social *Vyadhi* (disease).
+                        Strictly **-------**. If you don't glow, you don't go. Non-compliance will result in immediate social *Vyadhi* (disease).
                     </p>
                     <ul class="space-y-4">
-                        <li class="flex items-center text-xl font-bold text-gray-100">
-                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl">⚡</span>
-                            Theme: **NEON GALA (High-Wattage)**
+                        <li class="flex items-start text-xl font-bold text-gray-100">
+                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl flex-shrink-0">⚡</span>
+                            Theme: **----(High-Wattage)**
                         </li>
-                        <li class="flex items-center text-xl font-bold text-gray-100">
-                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl">🕶️</span>
-                            Boys: **Formal Black/Navy Suits (with maximum glow accessories)**
+                        <li class="flex items-start text-xl font-bold text-gray-100">
+                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl flex-shrink-0">🕶️</span>
+                            Boys: **--------------------**
                         </li>
-                        <li class="flex items-center text-xl font-bold text-gray-100">
-                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl">💎</span>
-                            Girls: **Evening Gowns/Designer Ethnic (Outshine the fluorescent lights!)**
+                        <li class="flex items-start text-xl font-bold text-gray-100">
+                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl flex-shrink-0">💎</span>
+                            Girls: **-----------------------**
                         </li>
                     </ul>
                 </div>
@@ -359,64 +360,46 @@
 
     <!-- Program Highlights Section -->
     <section class="pt-16 pb-20 bg-black">
-        <div class="container mx-auto px-6 text-center">
+        <div class="container mx-auto px-4 sm:px-6 text-center">
             <!-- Simplified Section Title -->
-            <h2 class="text-5xl font-extrabold text-white mb-12 border-b-4 pb-4 border-yellow-500/50 inline-block animate-reveal delay-6">The Night's Five Action Plan (The Program)</h2>
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-12 border-b-4 pb-4 border-yellow-500/50 inline-block animate-reveal delay-6">The Night's Five Action Plan (The Program)</h2>
             
-            <!-- 5-Column Grid -->
-            <div class="grid grid-cols-2 gap-4 sm:gap-8 md:grid-cols-5"> 
+            <!-- Responsive Grid Fix: 2 columns default, 3 columns on medium, 5 columns on large -->
+            <div class="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5"> 
                 
                 <!-- Highlight Card 1 (DJ) - Conciser text to prevent overflow -->
-                <div class="p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-gold)] animate-reveal delay-7 min-h-40 text-center">
-                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">🎧</div>
+                <div class="p-4 sm:p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-gold)] animate-reveal delay-7 min-h-40 text-center">
+                    <div class="text-3xl sm:text-4xl mb-3 text-[var(--color-accent-gold)]">🎧</div>
                     <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">DJ & Molecular Movement</h3>
                     <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">Mandatory stress reduction therapy. Maximum rhythmic movement. Forget the books and dance!</p>
                 </div>
                 
                 <!-- Highlight Card 2 (Talent) - Conciser text to prevent overflow -->
-                <div class="p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-red)] animate-reveal delay-8 min-h-40 text-center">
-                    <div class="text-4xl mb-3 text-[var(--color-accent-red)]">🎤</div>
+                <div class="p-4 sm:p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-red)] animate-reveal delay-8 min-h-40 text-center">
+                    <div class="text-3xl sm:text-4xl mb-3 text-[var(--color-accent-red)]">🎤</div>
                     <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Talent Showcase: Phase 2</h3>
                     <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">Unleash your inner superstar. Prove you're more than just a student with singing, dancing, and comedy.</p>
                 </div>
                 
                 <!-- Highlight Card 3 (MR & MS FRESHER) - Conciser text to prevent overflow -->
                 <div class="premium-card rounded-2xl animate-reveal delay-7 contest-highlight min-h-40 text-center">
-                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">👑</div>
+                    <div class="text-3xl sm:text-4xl mb-3 text-[var(--color-accent-gold)]">👑</div>
                     <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Mr. & Ms. Fresher</h3>
                     <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">The ultimate title, judged on charisma, wit, and confidence. Who will be the Batch Royalty?</p>
                 </div>
 
                 <!-- Highlight Card 4 (MR & MS SPARK) - Conciser text to prevent overflow -->
                 <div class="premium-card rounded-2xl animate-reveal delay-8 contest-highlight min-h-40 text-center">
-                    <div class="text-4xl mb-3 text-[var(--color-accent-gold)]">🔥</div>
+                    <div class="text-3xl sm:text-4xl mb-3 text-[var(--color-accent-gold)]">🔥</div>
                     <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Mr. & Ms. Spark</h3>
                     <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">The most dazzling personality and highest energy. Bring the spark and win the crown.</p>
                 </div>
                 
                 <!-- Highlight Card 5 (Gourmet Feast) - Kept short description -->
-                <div class="p-6 premium-card rounded-2xl border-t-4 border-indigo-500 animate-reveal delay-8 min-h-40 text-center">
-                    <div class="text-4xl mb-3 text-indigo-400">🍽️</div>
+                <div class="p-4 sm:p-6 premium-card rounded-2xl border-t-4 border-indigo-500 animate-reveal delay-8 min-h-40 text-center">
+                    <div class="text-3xl sm:text-4xl mb-3 text-indigo-400">🍽️</div>
                     <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">The Grand Gourmet Feast</h3>
                     <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">Food that satisfies all cravings and temporarily cures homesickness. A grand feast to boost your energy levels.</p>
-                </div>
-            </div>
-            
-            <!-- RSVP Button (Animated) -->
-            <a href="javascript:void(0)" onclick="document.getElementById('rsvp-message').classList.remove('hidden')" class="mt-20 inline-block text-black font-extrabold py-5 px-16 rounded-full text-xl transition duration-300 transform hover:scale-110 shadow-lg rsvp-button uppercase tracking-widest animate-reveal delay-8">
-                Initiate RSVP Sequence (Doshic Balance Required)
-            </a>
-
-            <!-- Fake Modal Message Box (No alert() used) -->
-            <div id="rsvp-message" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 transition-opacity duration-300">
-                <div class="premium-card p-10 rounded-xl max-w-lg w-full text-center border-4 border-yellow-500/80 transform scale-100 animate-reveal delay-1">
-                    <h4 class="text-4xl font-extrabold text-[var(--color-accent-red)] mb-4">SYSTEM ACCESS DENIED</h4>
-                    <p class="text-xl text-gray-300 mb-6">
-                        Registration link is not yet active. Please check back **72 hours** before the event for the *Panchakarma* pre-registration form. <br><span class="font-bold text-[var(--color-accent-gold)]">Failure to register will result in an immediate *Vata* imbalance.</span>
-                    </p>
-                    <button onclick="document.getElementById('rsvp-message').classList.add('hidden')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition">
-                        Understood. Return to Mission.
-                    </button>
                 </div>
             </div>
         </div>
@@ -424,8 +407,8 @@
 
     <!-- Footer & Organizers -->
     <footer class="py-12 bg-[#0c0014] border-t-4 border-red-500/30">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-2xl font-bold text-[var(--color-accent-gold)] mb-2">BAMS 2023 Batch | HAMC</p>
+        <div class="container mx-auto px-4 sm:px-6 text-center">
+            <p class="text-xl sm:text-2xl font-bold text-[var(--color-accent-gold)] mb-2">BAMS 2023 Batch | HAMC</p>
             <p class="text-gray-500 text-base">
                 Your seniors, the original *Acharyas* of this college, have prepared this event. Trust the process.
             </p>
@@ -454,7 +437,7 @@
 
             if (distance < 0) {
                 // Event has passed
-                countdownHtml = '<div class="col-span-4 text-4xl md:text-6xl font-bold text-[var(--color-accent-gold)] p-6 rounded-xl premium-card">🥳 MISSION COMPLETE: Party in Progress! 🥳</div>';
+                countdownHtml = '<div class="col-span-4 text-3xl sm:text-4xl md:text-6xl font-bold text-[var(--color-accent-gold)] p-6 rounded-xl premium-card">🥳 MISSION COMPLETE: Party in Progress! 🥳</div>';
             } else {
                 // Event is counting down
                 // Simplified labels for better readability
@@ -470,7 +453,7 @@
                     countdownHtml += `
                         <div class="p-4 sm:p-6 rounded-2xl transition duration-300 premium-card hover:shadow-none">
                             <div class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[var(--color-accent-gold)] animate-flicker">${unit.value.toString().padStart(2, '0')}</div>
-                            <div class="text-xs sm:text-md md:text-xl font-medium text-gray-400 uppercase mt-2">${unit.label}</div>
+                            <div class="text-xs sm:text-sm md:text-xl font-medium text-gray-400 uppercase mt-2">${unit.label}</div>
                         </div>
                     `;
                 });
