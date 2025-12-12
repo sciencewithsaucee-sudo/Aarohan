@@ -3,428 +3,513 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>आरोहण 2024 | HAMC Freshers - The Grand Ascent</title>
-    <!-- Load Tailwind CSS from CDN -->
+    <title>Aarohan 2024 | The Magical Assembly</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel for headings (very Harry Potter-esque), Crimson Text for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Custom styles for PREMIUM, CINEMATIC, AND GEOMETRIC ANIMATION */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Cinzel:wght@700;900&family=Orbitron:wght@400..900&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000; 
-            color: #f3f4f6; 
-            perspective: 1200px; /* Deeper perspective for 3D effects */
-            overflow-x: hidden; /* CRITICAL FIX: Prevent horizontal scrolling */
-        }
-
-        /* --- Color Palette Update: Neon & Gold --- */
+        /* --- CORE MAGICAL STYLES --- */
         :root {
-            --color-accent-gold: #ffc400; /* Brighter Gold */
-            --color-accent-red: #ff006e; /* Neon Pink/Red */
-            --color-bg-deep: #000000;
+            --hogwarts-bg: #0b0f19;
+            --gryffindor-red: #740001;
+            --gryffindor-gold: #D3A625;
+            --slytherin-green: #1a472a;
+            --slytherin-silver: #aaaaaa;
+            --ravenclaw-blue: #0e1a40;
+            --hufflepuff-yellow: #ecb939;
+            --parchment: #f0e6d2;
+            --magic-glow: #e2d1f5;
         }
 
-        /* 1. ANIMATED GEOMETRIC BACKGROUND (More intense) */
-        @keyframes geometric-shift {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
+        body {
+            font-family: 'Crimson Text', serif;
+            background-color: var(--hogwarts-bg);
+            color: var(--parchment);
+            cursor: none; /* Hide default cursor for the wand */
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        h1, h2, h3, h4, .hp-font {
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        .handwritten {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* --- CUSTOM CURSOR (THE WAND) --- */
+        #wand-cursor {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23D3A625'%3E%3Cpath d='M14.1 5.9L3 17l1.4 1.4 11.1-11.1 1.4-1.4 4.2 4.2-1.4-1.4L14.1 5.9z'/%3E%3C/svg%3E"); 
+            /* Simple wand SVG shape embedded */
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 9999;
+            transform: rotate(-45deg);
+            filter: drop-shadow(0 0 5px var(--magic-glow));
+        }
+
+        .sparkle {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: sparkle-fade 1s forwards;
+            box-shadow: 0 0 10px gold, 0 0 20px white;
+        }
+
+        @keyframes sparkle-fade {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; top: 100px; } /* Gravity effect */
+        }
+
+        /* --- BACKGROUND ANIMATIONS (Stars & Fog) --- */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -2;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        .fog {
+            position: fixed;
+            bottom: 0; left: 0; width: 200%; height: 100%;
+            background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png") repeat-x;
+            background-size: contain;
+            opacity: 0.3;
+            z-index: -1;
+            animation: drift 60s linear infinite;
         }
         
-        /* New: Pulsating Light Source */
-        @keyframes pulse-light {
-            0%, 100% { box-shadow: 0 0 400px rgba(255, 0, 110, 0.4); }
-            50% { box-shadow: 0 0 500px rgba(255, 196, 0, 0.6); }
+        @keyframes drift {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        .hero-background {
-            /* Radial gradient centered at the top */
-            background: radial-gradient(circle at 50% 0%, rgba(255, 0, 110, 0.15) 0%, var(--color-bg-deep) 70%);
-            position: relative;
-            overflow: hidden;
-            border-bottom: 5px solid var(--color-accent-red);
-            box-shadow: 0 8px 30px rgba(255, 0, 110, 0.4);
-        }
-
-        .hero-background::before {
-            content: '';
+        /* --- FLOATING CANDLES --- */
+        .candle {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* Faint hexagonal grid pattern */
-            background-image: repeating-linear-gradient(60deg, #180007 0 1px, transparent 1px 16px), repeating-linear-gradient(-60deg, #180007 0 1px, transparent 1px 16px);
-            background-size: 32px 32px;
-            opacity: 0.2;
-            animation: geometric-shift 60s linear infinite; 
-            pointer-events: none;
+            width: 16px;
+            height: 50px;
+            background: linear-gradient(to bottom, #fffdf5, #e8dcb5);
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             z-index: 1;
         }
-        
-        .hero-background::after {
+        .candle::before { /* The Flame */
             content: '';
             position: absolute;
-            bottom: 0;
+            top: -20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150vw; /* Wide light source */
-            height: 50vh;
+            width: 10px;
+            height: 25px;
+            background: radial-gradient(ellipse at bottom, yellow, orange, transparent);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 196, 0, 0.1), transparent 70%);
-            animation: pulse-light 5s infinite ease-in-out;
-            pointer-events: none;
-            z-index: 1;
+            filter: blur(2px);
+            animation: flicker 0.1s infinite alternate;
+        }
+        .candle::after { /* The Halo */
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255, 200, 0, 0.2), transparent 70%);
+            border-radius: 50%;
+            animation: glow-pulse 2s infinite alternate;
         }
 
-        .content-container {
-            position: relative;
-            z-index: 2; 
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
         }
         
-        /* Electric Gradient text */
-        .electric-gradient-text {
-            background: linear-gradient(90deg, var(--color-accent-gold), var(--color-accent-red), #ffffff); 
+        @keyframes glow-pulse {
+            0% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+            100% { opacity: 0.6; transform: translateX(-50%) scale(1.1); }
+        }
+
+        @keyframes float-candle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* --- PARCHMENT CARDS --- */
+        .parchment-card {
+            background-color: var(--parchment);
+            color: #2a1a08; /* Dark ink color */
+            background-image: url("https://www.transparenttextures.com/patterns/aged-paper.png");
+            box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 40px rgba(116, 68, 1, 0.2);
+            border: 2px solid #5c3a10;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+        }
+
+        .parchment-card:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 20px 50px rgba(212, 166, 37, 0.2), inset 0 0 20px rgba(116, 68, 1, 0.2);
+        }
+
+        /* Wax Seal */
+        .wax-seal {
+            position: absolute;
+            bottom: -15px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000);
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel Decorative', cursive;
+            font-weight: bold;
+            color: #590000;
+            font-size: 24px;
+            border: 4px solid #7a0000;
+        }
+
+        /* --- TEXT ANIMATIONS --- */
+        .ink-reveal {
+            background: linear-gradient(90deg, #2a1a08, #2a1a08);
+            background-size: 0% 100%;
+            background-repeat: no-repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            animation: ink-spread 2s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+            animation-delay: 0.5s;
+        }
+        
+        .golden-text {
+            background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-            font-family: 'Cinzel', serif; 
+            text-shadow: 0 0 10px rgba(191, 149, 63, 0.5);
         }
 
-        /* --- 2. RETRO RGB GLITCH EFFECT (Slightly faster/more unstable) --- */
-        .glitch-text {
-            font-family: 'Orbitron', sans-serif;
-            position: relative;
-            z-index: 10;
+        @keyframes ink-spread {
+            0% { background-size: 0% 100%; }
+            100% { background-size: 100% 100%; }
         }
-        
-        /* Glitch Alignment Fix: Use absolute positioning with transform to ensure true center alignment */
-        .glitch-text::before,
-        .glitch-text::after {
-            content: attr(data-text);
+
+        /* --- GOLDEN SNITCH --- */
+        .snitch-container {
             position: absolute;
-            top: 0;
-            /* Using left 50% and translateX -50% for perfect centering */
-            left: 50%; 
-            transform: translateX(-50%); 
-            width: 100%;
-            height: 100%;
+            animation: fly-random 10s infinite linear;
             pointer-events: none;
-            clip-path: inset(0 0 100% 0);
-            text-shadow: 0 0 10px rgba(255, 196, 0, 0.5);
-        }
-
-        .glitch-text::before {
-            color: cyan;
-            text-shadow: -2px 0 var(--color-accent-red); /* Red/Cyan separation */
-            animation: glitch-anim 1.5s infinite linear alternate-reverse;
-        }
-
-        .glitch-text::after {
-            color: red;
-            text-shadow: 2px 0 #00ffff;
-            animation: glitch-anim-2 1.5s infinite linear alternate;
-        }
-        
-        /* Glitch Keyframes adjusted to use the centered transform */
-        @keyframes glitch-anim {
-            0% { transform: translate(calc(-50% + 1px), 0); clip-path: inset(0 0 100% 0); }
-            5% { transform: translate(calc(-50% - 3px), 0); clip-path: inset(15% 0 75% 0); }
-            10% { transform: translate(calc(-50% + 3px), 0); clip-path: inset(5% 0 85% 0); }
-            15% { transform: translate(calc(-50% - 3px), 0); clip-path: inset(25% 0 65% 0); }
-            100% { transform: translate(calc(-50% + 1px), 0); clip-path: inset(0 0 100% 0); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% { transform: translate(calc(-50% - 1px), 0); clip-path: inset(100% 0 0 0); }
-            5% { transform: translate(calc(-50% + 3px), 0); clip-path: inset(5% 0 85% 0); }
-            10% { transform: translate(calc(-50% - 3px), 0); clip-path: inset(30% 0 60% 0); }
-            15% { transform: translate(calc(-50% + 3px), 0); clip-path: inset(60% 0 30% 0); }
-            100% { transform: translate(calc(-50% - 1px), 0); clip-path: inset(100% 0 0 0); }
-        }
-        /* --- END GLITCH EFFECT --- */
-
-        /* 3. CINEMATIC CONTENT REVEAL */
-        @keyframes cinematicReveal {
-            from { opacity: 0; transform: translateY(70px) rotateX(15deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
-        }
-        .animate-reveal {
-            animation: cinematicReveal 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            opacity: 0; 
-        }
-        /* Delay classes (kept similar) */
-        .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; } .delay-4 { animation-delay: 0.8s; }
-        .delay-5 { animation-delay: 1.0s; } .delay-6 { animation-delay: 1.2s; }
-        .delay-7 { animation-delay: 1.4s; } .delay-8 { animation-delay: 1.6s; }
-
-        /* 4. COUNTDOWN NUMBER FLICKER (More prominent glow) */
-        @keyframes flicker {
-            0%, 100% { opacity: 1; text-shadow: 0 0 10px var(--color-accent-gold); }
-            50% { opacity: 1; text-shadow: 0 0 20px var(--color-accent-red); }
-        }
-        .animate-flicker {
-            animation: flicker 3s infinite alternate;
-        }
-
-        /* 5. FLOATING ELEMENT ANIMATION */
-        @keyframes float {
-            0% { transform: translate(0, 0px) scale(1.0); }
-            50% { transform: translate(0, 10px) scale(1.02); } /* Deeper float */
-            100% { transform: translate(0, 0px) scale(1.0); }
-        }
-        .animate-float {
-            animation: float 8s ease-in-out infinite;
-        }
-
-        /* 6. CARD 3D HOVER */
-        .premium-card {
-            background-color: rgba(10, 0, 15, 0.95); /* Deeper purple hint */
-            backdrop-filter: blur(15px); 
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 40px rgba(255, 0, 110, 0.1); 
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); /* Smoother transition */
-            transform-style: preserve-3d;
-        }
-
-        .premium-card:hover {
-            transform: scale(1.04) translateZ(30px) rotateX(2deg) rotateY(-2deg); 
-            box-shadow: 0 15px 60px rgba(255, 196, 0, 0.4), 0 0 15px var(--color-accent-red);
-        }
-
-        /* --- SPECIAL STYLING FOR THE CONTEST CARD --- */
-        .contest-highlight {
-            background-color: rgba(30, 0, 15, 0.95) !important; /* Warmer/Reddish background */
-            border: 4px solid var(--color-accent-gold) !important; 
-            box-shadow: 0 0 60px rgba(255, 196, 0, 0.5) !important; 
-            position: relative;
-            overflow: hidden;
-            padding: 24px; 
-            padding-top: 65px !important; 
-        }
-
-        /* Styles for the "DOSHA DOMINATION CONTESTS" header band */
-        .contest-highlight::before {
-            content: '★ DOSHA DOMINATION CONTESTS ★';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: var(--color-accent-red);
-            color: white;
-            padding: 5px 0;
-            font-size: 0.8rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-align: center;
-            border-bottom: 2px solid var(--color-accent-gold);
-            transform: translateY(-1px); /* Nudge up slightly */
             z-index: 10;
         }
-        
-        /* --- RSVP Button Pulsation --- */
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 var(--color-accent-red); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 0, 110, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 110, 0); }
+        .snitch-body {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 30%, gold, #b8860b);
+            border-radius: 50%;
+            box-shadow: 0 0 15px gold;
         }
-        
-        .rsvp-button {
-            background: var(--color-accent-gold);
-            background-image: linear-gradient(45deg, var(--color-accent-gold) 0%, #ff6600 100%);
-            box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.7);
-            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
-        }
-        
-        .rsvp-button:hover {
-            background-image: linear-gradient(45deg, #ff6600 0%, var(--color-accent-gold) 100%);
-            animation: none; /* Stop pulsing on hover for better interaction */
-        }
-        
-        /* 7. VISUAL ASCENT (The Triangle) */
-        .ascent-visual {
-            width: 0;
-            height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-bottom: 50px solid var(--color-accent-gold);
+        .snitch-wing {
             position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%) rotateY(180deg);
-            opacity: 0.15;
-            z-index: 0;
-            filter: drop-shadow(0 0 10px var(--color-accent-gold));
+            top: 50%;
+            width: 40px;
+            height: 10px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50% 50% 0 0;
+            animation: flutter 0.1s infinite;
         }
+        .wing-left { left: -35px; transform-origin: right center; }
+        .wing-right { right: -35px; transform-origin: left center; }
+
+        @keyframes flutter {
+            0% { transform: scaleY(1) rotate(0deg); }
+            50% { transform: scaleY(0.5) rotate(10deg); }
+            100% { transform: scaleY(1) rotate(0deg); }
+        }
+
+        @keyframes fly-random {
+            0% { top: 20%; left: -10%; }
+            25% { top: 40%; left: 40%; }
+            50% { top: 10%; left: 80%; }
+            75% { top: 60%; left: 50%; }
+            100% { top: 80%; left: 110%; }
+        }
+
+        /* --- LOADING SCREEN (MARAUDER'S MAP) --- */
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #f0e6d2;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 1.5s ease-out;
+        }
+        
+        .footprints {
+            font-size: 40px;
+            color: #4a3c31;
+            animation: walk 2s infinite;
+        }
+        
+        @keyframes walk {
+            0% { transform: translateY(0) rotate(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-50px) rotate(10deg); opacity: 0; }
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Header & Hero Section -->
-    <header class="hero-background py-20 md:py-32">
-        <div class="content-container container mx-auto px-4 sm:px-6 text-center">
-            
-            <!-- College Logo/Text - Replaced technical protocol with a welcoming headline -->
-            <p class="text-xl font-semibold text-gray-400 mb-2 tracking-widest uppercase animate-reveal">
-                <span class="text-[var(--color-accent-red)]">HAMC BAMS 2023 PRESENT:</span>
-            </p>
+    <!-- CUSTOM WAND CURSOR -->
+    <div id="wand-cursor"></div>
 
-            <!-- Main Title (GLITCHED AND ANIMATED AND PERFECTLY CENTERED) -->
-            <!-- Adjusted font sizes for better mobile fit: text-6xl (default), sm:text-8xl, lg:text-[10rem] -->
-            <h1 class="glitch-text text-6xl sm:text-8xl lg:text-[10rem] font-extrabold mb-6 leading-none" data-text="आरोहण 2024">
-                <span class="electric-gradient-text">आरोहण</span>
-                <span class="text-white block sm:inline-block">2024</span>
-            </h1>
-            
-            <!-- Subtitle/Tagline (Humorous & Relatable) -->
-            <p class="text-2xl md:text-4xl font-light text-gray-300 mb-12 italic animate-reveal delay-1">
-                The only **Stress Detox Therapy** approved by the Department of *Rog Nidan*.
-            </p>
+    <!-- AUDIO (Hidden - Background ambience concept) -->
+    <!-- Note: Auto-play blocked by browsers usually, but we set the stage -->
 
-            <!-- Event Date & Time Block (FLOATING ANIMATION) -->
-            <div class="inline-block premium-card px-8 py-4 rounded-full border-yellow-500/50 animate-reveal delay-2 animate-float">
-                <p class="text-xl md:text-3xl font-extrabold text-[var(--color-accent-gold)]">
-                    <span class="text-[var(--color-accent-red)]">TARGET DATE:</span> 20 DEC 2025 | 09:00 HRS
-                </p>
-                <p class="text-md text-gray-400 mt-1">
-                    [LOCATION: HAMC SEMINAR HALL | DRESS CODE STRICTLY ENFORCED]
-                </p>
-            </div>
-            
-            <!-- Countdown Timer - Margin adjusted to mt-10 for reduced spacing -->
-            <div id="countdown" class="mt-10 grid grid-cols-4 gap-4 sm:gap-6 justify-center animate-reveal delay-3">
-                <!-- Timer blocks will be injected here by JavaScript with flicker effect -->
-            </div>
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen" onclick="hideLoader()">
+        <div class="footprints mb-4">👣</div>
+        <h2 class="text-4xl text-[#4a3c31] font-bold text-center px-4 tracking-widest uppercase" style="font-family: 'Cinzel Decorative';">
+            I Solemnly Swear <br> That I Am Up To No Good
+        </h2>
+        <p class="mt-8 text-xl text-[#4a3c31] handwritten opacity-70 animate-pulse">Tap to Unlock the Map</p>
+    </div>
+
+    <!-- BACKGROUND LAYERS -->
+    <div class="stars"></div>
+    <div class="fog"></div>
+
+    <!-- FLOATING CANDLES (Added via JS for randomness) -->
+    <div id="candle-container"></div>
+    
+    <!-- GOLDEN SNITCH -->
+    <div class="snitch-container" style="top: 15%; left: -10%;">
+        <div class="snitch-body">
+            <div class="snitch-wing wing-left"></div>
+            <div class="snitch-wing wing-right"></div>
         </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="relative z-10 pt-24 pb-20 overflow-hidden">
         
-        <!-- Ascent Visual (Triangle) -->
-        <div class="ascent-visual"></div>
-    </header>
+        <!-- HEADER / TITLE -->
+        <header class="text-center px-4 relative">
+            <div class="inline-block mb-4 animate-bounce">
+                <span class="text-4xl">⚡</span>
+            </div>
+            <h3 class="text-xl md:text-2xl text-gray-400 tracking-[0.3em] uppercase mb-4" style="font-family: 'Cinzel Decorative';">
+                HAMC School of Witchcraft & Wizardry
+            </h3>
+            
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-black mb-2 leading-tight golden-text tracking-wider filter drop-shadow-[0_0_15px_rgba(255,215,0,0.5)]">
+                AAROHAN
+            </h1>
+            <h2 class="text-4xl md:text-6xl text-white opacity-90 handwritten transform -rotate-2 -mt-4 mb-12" style="color: #ecb939;">
+                The Yule Ball 2024
+            </h2>
 
-    <!-- WARNING/DISCLAIMER Section -->
-    <section class="py-6 bg-black"> 
-        <div class="container mx-auto px-4 sm:px-6 text-center">
-            <div class="inline-block px-8 py-4 rounded-xl bg-red-900/40 border-4 border-red-500/80 shadow-red-500/50 shadow-2xl animate-reveal delay-4 max-w-full">
-                <h3 class="text-2xl sm:text-3xl font-bold text-red-400 mb-2">🚨 PROTOCOL ADVISORY LEVEL RED:</h3>
-                <p class="text-lg sm:text-xl text-white font-medium">
-                    This event is **NON-STUDY MATERIAL**. Attendance may temporarily erase memories of *Rachana Sharir* and *Kriya Sharir*. We are **not** liable for subsequent exam failures due to *Vata* Vitiation. Proceed with caution.
+            <!-- DATE SCROLL -->
+            <div class="max-w-2xl mx-auto parchment-card p-6 md:p-8 rounded-lg transform rotate-1 hover:rotate-0 transition duration-500">
+                <p class="text-2xl md:text-3xl font-bold border-b-2 border-[#5c3a10] pb-2 mb-2" style="font-family: 'Cinzel Decorative';">
+                    DECEMBER 20, 2025
                 </p>
+                <p class="text-xl italic">
+                    "When the clock strikes nine, the magic begins."
+                </p>
+                <p class="mt-2 text-sm font-bold uppercase tracking-widest text-[#740001]">
+                    Location: The Great Hall (Seminar Hall)
+                </p>
+                <div class="wax-seal">H</div>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- Welcome & Theme Section -->
-    <section class="py-20 md:py-24 bg-black">
-        <div class="container mx-auto px-4 sm:px-6">
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--color-accent-gold)] mb-12 text-center animate-reveal delay-5">DECODING THE MISSION: Phase 1 Briefing</h2>
+        <!-- COUNTDOWN (Magical Clock) -->
+        <section class="mt-20 px-4">
+            <div class="container mx-auto">
+                <div id="countdown" class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                    <!-- JS Injected -->
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATIONAL DECREE (Protocol) -->
+        <section class="mt-24 container mx-auto px-4 max-w-4xl">
+            <div class="bg-[#1e1e1e] border-4 border-[#740001] p-2 shadow-[0_0_30px_#740001]">
+                <div class="border-2 border-[#ecb939] p-8 text-center bg-[url('https://www.transparenttextures.com/patterns/dark-leather.png')]">
+                    <h3 class="text-3xl md:text-5xl text-[#ecb939] mb-6 uppercase tracking-widest border-b border-[#ecb939] pb-4">
+                        Educational Decree <br><span class="text-2xl">No. 2024</span>
+                    </h3>
+                    <p class="text-xl text-gray-300 leading-relaxed font-serif italic">
+                        "By order of the High Inquisitor, all students are hereby required to attend the <strong>Anti-Dementor Protocol</strong> (Stress Detox). Failure to attend will result in a deduction of 50 points from your house and detention with the Care of Magical Creatures department."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE HOUSES / EVENTS -->
+        <section class="mt-24 px-4">
+            <h2 class="text-4xl md:text-5xl text-center text-[#ecb939] mb-12 golden-text">The Triwizard Tasks</h2>
             
-            <div class="grid lg:grid-cols-3 gap-8 md:gap-12 items-stretch">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                 
-                <!-- Welcome Message Card (3D Hover) -->
-                <div class="lg:col-span-2 premium-card p-8 sm:p-12 rounded-3xl animate-reveal delay-6">
-                    <h3 class="text-4xl sm:text-5xl font-bold text-[var(--color-accent-red)] mb-6 border-b-2 border-red-500/50 pb-2">Ojas Overload: Stress Detoxification</h3>
-                    <p class="text-gray-300 text-lg sm:text-xl mb-6 leading-relaxed">
-                        BAMS 2024 Batch, welcome to the Grand Ascent! The first semester is a journey through anatomical confusion and conceptual density. This night is your *Virechana Karma* (therapeutic purgation) for academic stress—a mandatory ritual to restore your maximum *Ojas* (vitality). Prepare for a night of zero anatomical correctness and 100% molecular bonding.
+                <!-- Card 1: Gryffindor Style -->
+                <div class="parchment-card p-8 rounded-lg transform hover:-translate-y-4 transition duration-500">
+                    <h3 class="text-3xl font-bold text-[#740001] mb-4 border-b-2 border-[#740001] pb-2">The Weird Sisters</h3>
+                    <p class="text-lg italic mb-4">"DJ & Sonic Spells"</p>
+                    <p class="text-[#2a1a08] leading-relaxed">
+                        Prepare your best dance moves. No ballistic spells on the dance floor. Waltz champions will be crowned.
                     </p>
-                    <p class="text-[var(--color-accent-gold)] font-semibold text-lg sm:text-xl italic">
-                        The ascent (आरोहण) is challenging, but the view from the top (of the dance floor) is magnificent. Let the bonding begin with an atomic energy blast!
-                    </p>
+                    <div class="mt-4 text-4xl text-right">🎻</div>
                 </div>
-                
-                <!-- Dress Code Card (3D Hover) -->
-                <div class="lg:col-span-1 premium-card p-8 sm:p-12 rounded-3xl animate-reveal delay-7">
-                    <h3 class="text-3xl font-bold text-[var(--color-accent-gold)] mb-6">Dress Code: Surgical Precision</h3>
-                    <p class="text-lg text-gray-400 mb-6">
-                        Strictly **-------**. If you don't glow, you don't go. Non-compliance will result in immediate social *Vyadhi* (disease).
+
+                <!-- Card 2: Slytherin Style -->
+                <div class="parchment-card p-8 rounded-lg transform hover:-translate-y-4 transition duration-500 delay-100">
+                    <h3 class="text-3xl font-bold text-[#1a472a] mb-4 border-b-2 border-[#1a472a] pb-2">Triwizard Cup</h3>
+                    <p class="text-lg italic mb-4">"Mr. & Ms. Fresher"</p>
+                    <p class="text-[#2a1a08] leading-relaxed">
+                        Eternal glory awaits the student who wins the cup. Judged on charisma, courage, and knowledge of potions.
                     </p>
-                    <ul class="space-y-4">
-                        <li class="flex items-start text-xl font-bold text-gray-100">
-                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl flex-shrink-0">⚡</span>
-                            Theme: **----(High-Wattage)**
-                        </li>
-                        <li class="flex items-start text-xl font-bold text-gray-100">
-                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl flex-shrink-0">🕶️</span>
-                            Boys: **--------------------**
-                        </li>
-                        <li class="flex items-start text-xl font-bold text-gray-100">
-                            <span class="text-[var(--color-accent-red)] mr-3 text-2xl flex-shrink-0">💎</span>
-                            Girls: **-----------------------**
-                        </li>
-                    </ul>
+                    <div class="mt-4 text-4xl text-right">🏆</div>
+                </div>
+
+                <!-- Card 3: Hufflepuff Style -->
+                <div class="parchment-card p-8 rounded-lg transform hover:-translate-y-4 transition duration-500 delay-200">
+                    <h3 class="text-3xl font-bold text-[#b38728] mb-4 border-b-2 border-[#b38728] pb-2">The Great Feast</h3>
+                    <p class="text-lg italic mb-4">"Magical Dining"</p>
+                    <p class="text-[#2a1a08] leading-relaxed">
+                        A banquet fit for Headmasters. Chocolate frogs, Butterbeer, and delicacies from the kitchens below.
+                    </p>
+                    <div class="mt-4 text-4xl text-right">🍺</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- DRESS CODE (The Invitiation) -->
+        <section class="mt-24 mb-20 container mx-auto px-4 max-w-3xl text-center">
+            <div class="relative">
+                <!-- Glowing Border -->
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#ecb939] to-transparent opacity-30 blur-xl"></div>
+                
+                <h2 class="relative text-4xl font-bold text-white mb-8">
+                    <span class="text-[#ecb939]">⚡</span> Dress Robes Required <span class="text-[#ecb939]">⚡</span>
+                </h2>
+                <div class="bg-black/50 backdrop-blur-sm border border-[#ecb939]/30 p-8 rounded-xl text-xl text-gray-300">
+                    <p class="mb-4"><strong class="text-[#ecb939]">Wizards:</strong> Dress Robes or Muggle Suits (Black Tie).</p>
+                    <p class="mb-4"><strong class="text-[#ecb939]">Witches:</strong> Ball Gowns or Yule Ball Attire.</p>
+                    <p class="italic text-sm mt-6 text-gray-500">"Muggles in denim will be transfigured into ferrets."</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Program Highlights Section -->
-    <section class="pt-16 pb-20 bg-black">
-        <div class="container mx-auto px-4 sm:px-6 text-center">
-            <!-- Simplified Section Title -->
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-12 border-b-4 pb-4 border-yellow-500/50 inline-block animate-reveal delay-6">The Night's Five Action Plan (The Program)</h2>
-            
-            <!-- Responsive Grid Fix: 2 columns default, 3 columns on medium, 5 columns on large -->
-            <div class="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5"> 
-                
-                <!-- Highlight Card 1 (DJ) - Conciser text to prevent overflow -->
-                <div class="p-4 sm:p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-gold)] animate-reveal delay-7 min-h-40 text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 text-[var(--color-accent-gold)]">🎧</div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">DJ & Molecular Movement</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">Mandatory stress reduction therapy. Maximum rhythmic movement. Forget the books and dance!</p>
-                </div>
-                
-                <!-- Highlight Card 2 (Talent) - Conciser text to prevent overflow -->
-                <div class="p-4 sm:p-6 premium-card rounded-2xl border-t-4 border-[var(--color-accent-red)] animate-reveal delay-8 min-h-40 text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 text-[var(--color-accent-red)]">🎤</div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Talent Showcase: Phase 2</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">Unleash your inner superstar. Prove you're more than just a student with singing, dancing, and comedy.</p>
-                </div>
-                
-                <!-- Highlight Card 3 (MR & MS FRESHER) - Conciser text to prevent overflow -->
-                <div class="premium-card rounded-2xl animate-reveal delay-7 contest-highlight min-h-40 text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 text-[var(--color-accent-gold)]">👑</div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Mr. & Ms. Fresher</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">The ultimate title, judged on charisma, wit, and confidence. Who will be the Batch Royalty?</p>
-                </div>
+        <!-- FOOTER -->
+        <footer class="text-center py-12 border-t border-[#333] bg-[#050505]">
+            <p class="text-[#ecb939] font-bold text-xl mb-2">Mischief Managed.</p>
+            <p class="text-gray-600 text-sm">Organized by the Prefects of Batch 2023</p>
+        </footer>
 
-                <!-- Highlight Card 4 (MR & MS SPARK) - Conciser text to prevent overflow -->
-                <div class="premium-card rounded-2xl animate-reveal delay-8 contest-highlight min-h-40 text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 text-[var(--color-accent-gold)]">🔥</div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Mr. & Ms. Spark</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">The most dazzling personality and highest energy. Bring the spark and win the crown.</p>
-                </div>
-                
-                <!-- Highlight Card 5 (Gourmet Feast) - Kept short description -->
-                <div class="p-4 sm:p-6 premium-card rounded-2xl border-t-4 border-indigo-500 animate-reveal delay-8 min-h-40 text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 text-indigo-400">🍽️</div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">The Grand Gourmet Feast</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm italic text-center mx-auto">Food that satisfies all cravings and temporarily cures homesickness. A grand feast to boost your energy levels.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
-    <!-- Footer & Organizers -->
-    <footer class="py-12 bg-[#0c0014] border-t-4 border-red-500/30">
-        <div class="container mx-auto px-4 sm:px-6 text-center">
-            <p class="text-xl sm:text-2xl font-bold text-[var(--color-accent-gold)] mb-2">BAMS 2023 Batch | HAMC</p>
-            <p class="text-gray-500 text-base">
-                Your seniors, the original *Acharyas* of this college, have prepared this event. Trust the process.
-            </p>
-            <p class="text-xs mt-6 text-gray-600">
-                Aarohan 2024. All rights reserved by the BAMS 2023 Host Committee. The Ascendant.
-            </p>
-        </div>
-    </footer>
-
+    <!-- SCRIPTS -->
     <script>
-        // JavaScript for the Countdown Timer
+        // --- 1. LOADER LOGIC ---
+        function hideLoader() {
+            const loader = document.getElementById('loading-screen');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                // Trigger title animations here if needed
+            }, 1000);
+        }
+
+        // Auto-hide loader after 4 seconds if not clicked
+        setTimeout(hideLoader, 4000);
+
+        // --- 2. FLOATING CANDLES GENERATOR ---
+        const candleContainer = document.getElementById('candle-container');
+        const candleCount = window.innerWidth < 768 ? 5 : 15; // Fewer candles on mobile
+
+        for (let i = 0; i < candleCount; i++) {
+            const candle = document.createElement('div');
+            candle.classList.add('candle');
+            
+            // Random positioning
+            const left = Math.random() * 100;
+            const top = Math.random() * 40; // Only top half
+            const delay = Math.random() * 5;
+            const duration = 3 + Math.random() * 3;
+            
+            candle.style.left = `${left}%`;
+            candle.style.top = `${top}%`;
+            candle.style.animation = `float-candle ${duration}s ease-in-out infinite`;
+            candle.style.animationDelay = `${delay}s`;
+            
+            candleContainer.appendChild(candle);
+        }
+
+        // --- 3. WAND SPARKLE EFFECT ---
+        const cursor = document.getElementById('wand-cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            // Move Wand
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+
+            // Create Sparkle
+            if (Math.random() < 0.3) { // Not every frame, too heavy
+                createSparkle(e.clientX, e.clientY);
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            document.body.appendChild(sparkle);
+
+            const size = Math.random() * 4 + 2; // 2px to 6px
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            
+            // Random offset near cursor tip
+            const offsetX = (Math.random() - 0.5) * 20;
+            const offsetY = (Math.random() - 0.5) * 20;
+            
+            sparkle.style.left = `${x + offsetX}px`;
+            sparkle.style.top = `${y + offsetY}px`;
+            sparkle.style.backgroundColor = Math.random() > 0.5 ? '#ffd700' : '#ffffff'; // Gold or White
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        }
+
+        // --- 4. COUNTDOWN TIMER ---
         const eventDate = new Date("December 20, 2025 09:00:00").getTime();
+        const countdownEl = document.getElementById("countdown");
 
-        const countdownElement = document.getElementById("countdown");
-
-        function updateCountdown() {
+        function updateTimer() {
             const now = new Date().getTime();
             const distance = eventDate - now;
 
@@ -433,39 +518,34 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            let countdownHtml = '';
+            const timeData = [
+                { val: days, label: "Days" },
+                { val: hours, label: "Hours" },
+                { val: minutes, label: "Minutes" },
+                { val: seconds, label: "Seconds" }
+            ];
 
             if (distance < 0) {
-                // Event has passed
-                countdownHtml = '<div class="col-span-4 text-3xl sm:text-4xl md:text-6xl font-bold text-[var(--color-accent-gold)] p-6 rounded-xl premium-card">🥳 MISSION COMPLETE: Party in Progress! 🥳</div>';
+                countdownEl.innerHTML = '<div class="col-span-4 text-center text-4xl text-[#ecb939] font-bold">THE MAGIC HAS BEGUN!</div>';
             } else {
-                // Event is counting down
-                // Simplified labels for better readability
-                const timeUnits = [
-                    { value: days, label: "Days" },
-                    { value: hours, label: "Hours" },
-                    { value: minutes, label: "Minutes" },
-                    { value: seconds, label: "Seconds" }
-                ];
-
-                timeUnits.forEach(unit => {
-                    // Added a wrapper div with premium-card for consistency
-                    countdownHtml += `
-                        <div class="p-4 sm:p-6 rounded-2xl transition duration-300 premium-card hover:shadow-none">
-                            <div class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[var(--color-accent-gold)] animate-flicker">${unit.value.toString().padStart(2, '0')}</div>
-                            <div class="text-xs sm:text-sm md:text-xl font-medium text-gray-400 uppercase mt-2">${unit.label}</div>
+                let html = '';
+                timeData.forEach(item => {
+                    html += `
+                        <div class="text-center p-4 bg-[#1a1a1a] border border-[#333] rounded-lg shadow-[0_0_15px_rgba(0,0,0,0.5)] transform hover:scale-105 transition">
+                            <div class="text-4xl md:text-5xl font-bold text-[#ecb939] mb-1" style="font-family: 'Cinzel Decorative';">
+                                ${item.val.toString().padStart(2, '0')}
+                            </div>
+                            <div class="text-xs text-gray-500 uppercase tracking-widest">${item.label}</div>
                         </div>
                     `;
                 });
+                countdownEl.innerHTML = html;
             }
-            
-            countdownElement.innerHTML = countdownHtml;
         }
+        setInterval(updateTimer, 1000);
+        updateTimer();
 
-        // Update the countdown every 1 second
-        setInterval(updateCountdown, 1000);
-        // Initial call to display immediately
-        updateCountdown();
     </script>
 </body>
 </html>
+
